@@ -151,4 +151,21 @@
     transform: translateY(-5px);
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
+  
+  /* 3D perspective transforms */
+  .perspective-800 {
+    perspective: 800px;
+  }
+  
+  .rotate-y-10 {
+    transform: rotateY(10deg);
+  }
+  
+  .rotate-z-3 {
+    transform: rotateZ(3deg);
+  }
+  
+  .-rotate-y-10 {
+    transform: rotateY(-10deg);
+  }
 }
