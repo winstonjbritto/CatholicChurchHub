@@ -5,6 +5,7 @@ import {
   locations, type Location, type InsertLocation,
   languages, type Language, type InsertLanguage
 } from "@shared/schema";
+import { DatabaseStorage } from './DatabaseStorage';
 
 // Interface for storage operations
 export interface IStorage {
@@ -442,4 +443,6 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+// Use the DatabaseStorage instance
+import { DatabaseStorage as DbStorage } from './DatabaseStorage';
+export const storage = new DbStorage();
