@@ -1,12 +1,10 @@
 import { useCallback } from "react";
 import { useLocation } from "wouter";
-import { useQueryClient } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
 import { ChurchSearchParams } from "@/types";
+import { getChurch as getChurchService, getMassesForChurch, getMassesForChurchOnDay } from "@/services/dataService";
 
 export default function useChurches() {
   const [location, setLocation] = useLocation();
-  const queryClient = useQueryClient();
 
   // Navigate to the churches page with search parameters
   const searchChurches = useCallback((searchQuery: string) => {
@@ -22,7 +20,6 @@ export default function useChurches() {
     
     // Check if it's "Today's masses"
     if (searchQuery === "Today's masses" || searchQuery.toLowerCase().includes("today")) {
-      // The API already handles filtering by today's masses
       setLocation("/churches?query=today");
       return;
     }
@@ -68,8 +65,7 @@ export default function useChurches() {
   // Fetch a specific church by ID
   const getChurch = useCallback(async (id: number) => {
     try {
-      const res = await apiRequest("GET", `/api/churches/${id}`);
-      return await res.json();
+      return await getChurchService(id);
     } catch (error) {
       console.error("Error fetching church:", error);
       throw error;
@@ -79,15 +75,12 @@ export default function useChurches() {
   // Fetch masses for a specific church
   const getChurchMasses = useCallback(async (churchId: number, day?: number, date?: string) => {
     try {
-      let url = `/api/churches/${churchId}/masses`;
       if (day !== undefined) {
-        url += `?day=${day}`;
-      } else if (date) {
-        url += `?date=${date}`;
+        return await getMassesForChurchOnDay(churchId, day);
+      } else {
+        // For now, if date is provided, we'll just get all masses - in a real app you'd filter by date
+        return await getMassesForChurch(churchId);
       }
-      
-      const res = await apiRequest("GET", url);
-      return await res.json();
     } catch (error) {
       console.error("Error fetching masses:", error);
       throw error;
