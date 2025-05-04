@@ -67,14 +67,16 @@ export default function Header({
             
             <nav className="hidden md:flex items-center space-x-1 ml-8">
               {routes.map((route) => (
-                <Link key={route.path} href={route.path}>
-                  <a className={`font-medium px-4 py-2 rounded-full transition-colors ${
+                <Link 
+                  key={route.path} 
+                  href={route.path} 
+                  className={`font-medium px-4 py-2 rounded-full transition-colors ${
                     location === route.path 
                       ? 'text-primary bg-primary/5' 
                       : 'hover:text-primary hover:bg-primary/5'
-                  }`}>
-                    {route.label}
-                  </a>
+                  }`}
+                >
+                  {route.label}
                 </Link>
               ))}
             </nav>
@@ -121,17 +123,17 @@ export default function Header({
                 
                 <nav className="flex flex-col space-y-2">
                   {routes.map((route) => (
-                    <Link key={route.path} href={route.path}>
-                      <a 
-                        className={`font-medium transition-colors p-3 rounded-xl ${
-                          location === route.path 
-                            ? 'bg-primary/10 text-primary' 
-                            : 'hover:bg-primary/5 hover:text-primary'
-                        }`}
-                        onClick={closeMenu}
-                      >
-                        {route.label}
-                      </a>
+                    <Link 
+                      key={route.path} 
+                      href={route.path}
+                      className={`font-medium transition-colors p-3 rounded-xl ${
+                        location === route.path 
+                          ? 'bg-primary/10 text-primary' 
+                          : 'hover:bg-primary/5 hover:text-primary'
+                      }`}
+                      onClick={closeMenu}
+                    >
+                      {route.label}
                     </Link>
                   ))}
                 </nav>
